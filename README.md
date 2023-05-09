@@ -1,2 +1,2 @@
-# FrontEnd-Lab1
-Front-End Programming Lab Module 1
+# FrontEnd
+Front-End Programming
