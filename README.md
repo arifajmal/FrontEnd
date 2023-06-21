@@ -1,4 +1,4 @@
-# FrontEnd
+# Front End Programming
 University Malaysia Terengganu
 
 Front-End Programming
