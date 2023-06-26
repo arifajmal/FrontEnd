@@ -1,0 +1,154 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+
+    <link rel="stylesheet" href="css/paymentstyle.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-75">
+            <div class="container">
+                <form action="home.html">
+
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Billing Address</h3>
+                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" id="fname" name="firstname" placeholder="Enter your firstname">
+                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <input type="text" id="email" name="email" placeholder="Enter your email address">
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                            <input type="text" id="adr" name="address" placeholder="Enter your address">
+                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                            <input type="text" id="city" name="city" placeholder="Enter your city">
+
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="state">State</label>
+                                    <input type="text" id="state" name="state">
+                                </div>
+                                <div class="col-50">
+                                    <label for="zip">Zip</label>
+                                    <input type="text" id="zip" name="zip">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-50">
+                            <h3>Payment</h3>
+                            <label for="fname">Accepted Cards</label>
+                            <div class="icon-container">
+                                <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                <i class="fa fa-cc-discover" style="color:orange;"></i>
+                            </div>
+                            <label for="cname">Name on Card</label>
+                            <input type="text" id="cname" name="cardname">
+                            <label for="ccnum">Credit card number</label>
+                            <input type="text" id="ccnum" name="cardnumber"">
+                            <label for=" expmonth">Exp Month</label>
+                            <input type="text" id="expmonth" name="expmonth">
+
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="expyear">Exp Year</label>
+                                    <input type="text" id="expyear" name="expyear">
+                                </div>
+                                <div class="col-50">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <label>
+                        <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                    </label>
+                    <input type="submit" id="btnsubmit" value="Continue to checkout" class="btn">
+                </form>
+            </div>
+        </div>
+
+        <div class="col-25">
+            <div class="container">
+                <h4>Cart
+                    <span class="price" style="color:black">
+                        <i class="fa fa-shopping-cart"></i>
+                        <b>4</b>
+                    </span>
+                </h4>
+                <p><a href="vegetables.html">Potato</a> <span class="price">RM4.00</span></p>
+                <p><a href="fruits.html">Strawberry</a> <span class="price">RM14.90</span></p>
+                <p><a href="meats.html">Lamb</a> <span class="price">RM49.00</span></p>
+                <p><a href="cannedfoods.html">Sardine</a> <span class="price">RM3.75</span></p>
+                <hr>
+                <p>Total <span class="price" style="color:black"><b>RM71.65</b></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAE0zCP8bx66rR-EB1jinTYxXUDp0EJ2ac",
+            authDomain: "semmart-apps.firebaseapp.com",
+            databaseURL: "https://semmart-apps-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "semmart-apps",
+            storageBucket: "semmart-apps.appspot.com",
+            messagingSenderId: "673037198016",
+            appId: "1:673037198016:web:82327cda959327ccabc325",
+            measurementId: "G-W085KB2FFS"
+        };
+
+        // Initialize Firebase
+
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, set, get, remove, update, ref, child }
+            from "https://www.gstatic.com/firebasejs/9.22/firebase-database.js"
+
+        const db = getDatabase();
+
+        //const analytics = getAnalytics(app);
+
+        var userID = document.querySelector("#userID");
+        var userName = document.querySelector("#userName");
+        var userAge = document.querySelector("#userAge");
+
+        function funInsertData() {
+            set(ref(db, "people/" + userID.value), {
+                name: fname.value,
+                email: email.value,
+                address: adr.value,
+                city: city.value
+            })
+                .then(() => {
+                    alert("Data Added Successfully!")
+                })
+                .catch((error) => {
+                    alert(error)
+                });
+        }
+
+        var btnsubmit = document.querySelector("#btnsubmit");
+
+        btnsubmit.addEventListener("click", funInsertData);
+
+        document.querySelector("form").addEventListener("submit", (e) => e.preventDefault())
+    </script>
+</body>
+
+</html>
